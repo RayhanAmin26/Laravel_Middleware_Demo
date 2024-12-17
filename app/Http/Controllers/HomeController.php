@@ -40,3 +40,9 @@ class HomeController extends Controller
             'message'=>'This is a secret message'
         ]);
     }
+
+    function Message(Request $request){
+        return response()->json([
+            'message'=>'This is a message'
+        ]);
+    }

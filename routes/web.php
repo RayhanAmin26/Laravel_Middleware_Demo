@@ -40,4 +40,5 @@ Route::middleware(['auth','throttle:2,1'])->group(function(){
 // }
 
 Route::get('/download',[HomeController::class,'downloadFile'])->middleware('throttle:2,1');
+Route::get('/message',[HomeController::class,'message']);
 
