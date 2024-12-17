@@ -46,3 +46,10 @@ class HomeController extends Controller
             'message'=>'This is a message'
         ]);
     }
+
+    function contentForBD(Request $request){
+        return response()->json([
+            'message'=>'You can see it only from BD'
+        ]);
+    }
+

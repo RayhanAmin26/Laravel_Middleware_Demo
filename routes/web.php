@@ -5,6 +5,7 @@ use GuzzleHttp\Middleware;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\HomeController;
 use App\Http\Middleware\SimpleMiddleware;
+use App\Http\Middleware\CountryMiddleware;
 
 Route::get('/', function () {
     return view('welcome');
@@ -42,4 +43,7 @@ Route::middleware([SimpleMiddleware::class,'throttle:2,1'])->group(function(){
 
 Route::get('/download',[HomeController::class,'downloadFile'])->middleware('throttle:2,1');
 Route::get('/message',[HomeController::class,'message'])->middleware(SimpleMiddleware::class);
+
+
+Route::get('/message',[HomeController::class,'contentForBD'])->middleware(CountryMiddleware::class);
 
