@@ -22,5 +22,11 @@ Route::middleware('auth')->group(function () {
 require __DIR__.'/auth.php';
 
 Route::get('/public',[HomeController::class,'publicMessage']);
-Route::get('/private',[HomeController::class,'privateMessage'])->Middleware(['auth']);
-Route::get('/secret',[HomeController::class,'secretMessage'])->Middleware('auth');
+// Route::get('/private',[HomeController::class,'privateMessage'])->Middleware(['auth']);
+// Route::get('/secret',[HomeController::class,'secretMessage'])->Middleware('auth');
+
+Route::middleware('auth')->group(function(){
+    Route::get('/private',[HomeController::class,'privateMessage']);
+    Route::get('/secret',[HomeController::class,'secretMessage']);
+
+});
