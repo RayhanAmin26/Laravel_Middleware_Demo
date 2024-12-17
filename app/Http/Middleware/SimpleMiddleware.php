@@ -15,6 +15,19 @@ class SimpleMiddleware
      */
     public function handle(Request $request, Closure $next): Response
     {
-        return $next($request);
+
+        //deny
+        // return response()->json([
+        //     'message'=>'Access Denied'
+        // ],403);
+
+        if(!auth()->check()){
+            return response()->json([
+                    'message'=>'Access Denied'
+                 ],403);
+
+        }
+
+         return $next($request);
     }
 }

@@ -4,6 +4,7 @@ use App\Http\Controllers\ProfileController;
 use GuzzleHttp\Middleware;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\HomeController;
+use App\Http\Middleware\SimpleMiddleware;
 
 Route::get('/', function () {
     return view('welcome');
@@ -25,7 +26,7 @@ Route::get('/public',[HomeController::class,'publicMessage']);
 // Route::get('/private',[HomeController::class,'privateMessage'])->Middleware(['auth']);
 // Route::get('/secret',[HomeController::class,'secretMessage'])->Middleware('auth');
 
-Route::middleware(['auth','throttle:2,1'])->group(function(){
+Route::middleware([SimpleMiddleware::class,'throttle:2,1'])->group(function(){
     Route::get('/private',[HomeController::class,'privateMessage']);
     Route::get('/secret',[HomeController::class,'secretMessage']);
 
@@ -40,5 +41,5 @@ Route::middleware(['auth','throttle:2,1'])->group(function(){
 // }
 
 Route::get('/download',[HomeController::class,'downloadFile'])->middleware('throttle:2,1');
-Route::get('/message',[HomeController::class,'message']);
+Route::get('/message',[HomeController::class,'message'])->middleware(SimpleMiddleware::class);
 
