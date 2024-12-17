@@ -25,8 +25,19 @@ Route::get('/public',[HomeController::class,'publicMessage']);
 // Route::get('/private',[HomeController::class,'privateMessage'])->Middleware(['auth']);
 // Route::get('/secret',[HomeController::class,'secretMessage'])->Middleware('auth');
 
-Route::middleware('auth')->group(function(){
+Route::middleware(['auth','throttle:2,1'])->group(function(){
     Route::get('/private',[HomeController::class,'privateMessage']);
     Route::get('/secret',[HomeController::class,'secretMessage']);
 
 });
+
+
+// function downloadfile(Request $request){
+//     return response()->json([
+//         'message'=>'File Download'
+
+//     ]);
+// }
+
+Route::get('/download',[HomeController::class,'downloadFile'])->middleware('throttle:2,1');
+
