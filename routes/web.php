@@ -1,7 +1,9 @@
 <?php
 
 use App\Http\Controllers\ProfileController;
+use GuzzleHttp\Middleware;
 use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\HomeController;
 
 Route::get('/', function () {
     return view('welcome');
@@ -18,3 +20,7 @@ Route::middleware('auth')->group(function () {
 });
 
 require __DIR__.'/auth.php';
+
+Route::get('/public',[HomeController::class,'publicMessage']);
+Route::get('/private',[HomeController::class,'privateMessage'])->Middleware(['auth']);
+Route::get('/secret',[HomeController::class,'secretMessage'])->Middleware('auth');
